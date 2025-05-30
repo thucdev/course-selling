@@ -21,19 +21,6 @@ export function Sidebar() {
         <h2 className="text-lg font-semibold">Course Creator</h2>
       </div>
       <nav className="space-y-1 p-4">
-        {/* <Link
-          href="/creator/dashboard"
-          className={cn(
-            "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-            pathname === "/creator/dashboard" &&
-            "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
-          )}
-        >
-          <div className="flex items-center gap-x-2 py-4">
-            <LayoutDashboard size={22} />
-            Dashboard
-          </div>
-        </Link> */}
         <Link
           href="/creator/courses"
           className={cn(
