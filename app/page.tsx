@@ -1,9 +1,9 @@
 'use client'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useAuth } from './context/AuthContext'
-import { useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useAuth } from './context/AuthContext'
 
 export default function Home() {
   const { user, loading } = useAuth()
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     if (!loading && user) {
       if (user.role === 'creator') {
-        router.push('/creator/dashboard')
+        router.push('/creator/courses')
       } else {
         router.push('/learner/courses')
       }

@@ -1,18 +1,19 @@
 'use client'
-import Link from 'next/link'
 import { useAuth } from '@/app/context/AuthContext'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import {
-  LayoutDashboard,
-  BookOpen,
-  Users,
-  FileEdit,
-  Settings,
+  LayoutTemplate,
+  ListChecks,
   LogOut,
+  Users
 } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function Sidebar() {
   const { logout } = useAuth()
+  const pathname = usePathname()
 
   return (
     <div className="w-64 bg-white shadow-md">
@@ -20,41 +21,59 @@ export function Sidebar() {
         <h2 className="text-lg font-semibold">Course Creator</h2>
       </div>
       <nav className="space-y-1 p-4">
-        <Link
+        {/* <Link
           href="/creator/dashboard"
-          className="flex items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
+          className={cn(
+            "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+            pathname === "/creator/dashboard" &&
+            "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
+          )}
         >
-          <LayoutDashboard className="h-5 w-5" />
-          <span>Dashboard</span>
-        </Link>
+          <div className="flex items-center gap-x-2 py-4">
+            <LayoutDashboard size={22} />
+            Dashboard
+          </div>
+        </Link> */}
         <Link
           href="/creator/courses"
-          className="flex items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
+          className={cn(
+            "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+            pathname?.startsWith("/creator/courses") &&
+            "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
+          )}
         >
-          <BookOpen className="h-5 w-5" />
-          <span>Courses</span>
+          <div className="flex items-center gap-x-2 py-4">
+            <ListChecks size={22} />
+            Course Management
+          </div>
         </Link>
         <Link
           href="/creator/students"
-          className="flex items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
+          className={cn(
+            "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+            pathname?.startsWith("/creator/students") &&
+            "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
+          )}
         >
-          <Users className="h-5 w-5" />
-          <span>Students</span>
+          <div className="flex items-center gap-x-2 py-4">
+            <Users size={22} />
+            User Management
+          </div>
         </Link>
         <Link
           href="/creator/landing-pages"
-          className="flex items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
+          className={cn(
+            "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+            pathname?.startsWith("/creator/landing-pages") &&
+            "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
+          )}
         >
-          <FileEdit className="h-5 w-5" />
-          <span>Landing Pages</span>
+          <div className="flex items-center gap-x-2 py-4">
+            <LayoutTemplate size={22} />
+            Landing Page Management
+          </div>
         </Link>
-        <Link
-          href="/creator/settings"
-          className="flex items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
-        >
-          <Settings className="h-5 w-5" />
-          <span>Settings</span>
-        </Link>
+
         <Button
           variant="ghost"
           className="w-full justify-start"

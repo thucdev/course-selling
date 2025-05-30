@@ -4,10 +4,10 @@ import Link from "next/link"
 import { CourseTable } from "@/components/creator/CourseTable"
 import { useAuth } from "@/app/context/AuthContext"
 import { redirect } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-// Mock course data (replace with actual data fetching later)
-const mockCourses = [
+// Mock data - replace with actual data fetching later
+const initialMockCourses = [
   {
     id: "1",
     title: "Introduction to Next.js",
@@ -24,11 +24,19 @@ const mockCourses = [
     revenue: 1500,
     createdAt: "2023-02-20",
   },
-  // Add more mock courses as needed
+  {
+    id: "3",
+    title: "Full-Stack Development with Prisma",
+    status: "published" as "published" | "draft",
+    students: 200,
+    revenue: 4000,
+    createdAt: "2023-03-10",
+  },
 ];
 
 export default function CoursesPage() {
   const { user, loading } = useAuth()
+  const [courses, setCourses] = useState(initialMockCourses)
 
   useEffect(() => {
     if (!loading && user?.role !== 'creator') {
@@ -36,22 +44,25 @@ export default function CoursesPage() {
     }
   }, [user, loading])
 
+  const handleDeleteCourse = (courseId: string) => {
+    setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId))
+    // In a real application, you would also call an API to delete the course
+    console.log(`Course ${courseId} deleted`)
+  }
+
   if (loading || !user) {
     return <div>Loading...</div>
   }
 
-  // In a real application, you would fetch courses from an API
-  const courses = mockCourses;
-
   return (
-    <div>
+    <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold">Course Management</h1>
         <Link href="/creator/courses/new">
           <Button>Create New Course</Button>
         </Link>
       </div>
-      <CourseTable courses={courses} />
+      <CourseTable courses={courses} onDelete={handleDeleteCourse} />
     </div>
   );
 }
